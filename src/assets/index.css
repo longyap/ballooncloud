@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.navbar{
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+body { 
+    padding-top: 65px; 
+}
+section {
+    display: -webkit-flex;
+    display: flex;
+  }
