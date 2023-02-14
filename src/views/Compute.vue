@@ -30,7 +30,7 @@ An instance is a compute host. Choose between virtual machines (VMs) and bare me
  
 <l1 class="grid grid-cols-4 py-5">
 
-    <button type="button" onclick="location.href='/compute/create'"  class="py-2.5 px-5 mr-2 text-sm font-medium text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br  focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center">
+    <button type="button" onclick="location.href='/compute/create'"  class="py-2.5 px-5 mr-2 text-sm font-medium text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br inline-flex items-center">
     Create Instance
 </button>
     <button type="button" class="py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center">
