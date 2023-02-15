@@ -278,12 +278,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <script>
 function displayterminal() {
-  var x = document.getElementById("footerterminal");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
+   document.getElementById("footerterminal").style.display = "block";
 }
 function minimizeterminal(){
   document.getElementById("terminalform").style.display="none";
