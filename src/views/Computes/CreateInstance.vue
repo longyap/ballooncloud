@@ -87,7 +87,7 @@ export default {
         alert('Form submitted successfully')
       } else {
         var element = document.getElementById("toast-warning");
-        document.getElementById("toast-message").innerHTML = response.statusText;
+        document.getElementById("toast-message").innerHTML = response.status+" "+response.statusText;
         element.style.display = "flex";
         document.documentElement.scrollTop = 1000;
     }

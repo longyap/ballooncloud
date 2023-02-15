@@ -9,7 +9,6 @@
     Dashboard
   </h1>
       </div>
-      <button class="px-2 py-2 text-sm bg-red-800 hover:bg-slate-200 text-slate-50" @click="increment">test</button>
 
 
     </div>
