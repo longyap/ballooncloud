@@ -1,7 +1,7 @@
 <template>
 <div class="grid grid-cols-6 gap-4">
     <div class="px-5 py-2 col-start-2 col-span-3">
-        <h1 class="font-bold text-2xl">Create Compute Instance</h1>
+        <h1 class="font-bold text-2xl">Create Compute Instance </h1>
         <span>Create an instance to deploy and run applications.
 </span>
     </div>
@@ -87,7 +87,7 @@ export default {
         alert('Form submitted successfully')
       } else {
         var element = document.getElementById("toast-warning");
-        document.getElementById("toast-message").innerHTML = response.status+" "+response.statusText;
+        document.getElementById("toast-message").innerHTML = response.status+" "+ response.statusText;
         element.style.display = "flex";
         document.documentElement.scrollTop = 1000;
     }
