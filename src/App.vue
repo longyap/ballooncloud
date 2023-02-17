@@ -201,12 +201,15 @@ import { RouterLink, RouterView } from 'vue-router'
               <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
    
                 <ul class="flex flex-wrap -mb-px">
-                 <li class="mr-2">
-                  <li class="mr-2">
-                  <a id="defaultOpen" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">Terminal</a>
-                  </li>
-                  <a class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Editor</a>
-                  </li>
+                 <label class="mr-2 ">
+                  <input type="radio" class=" peer" checked>
+                  <a class="peer-checked:text-blue-600 peer-checked:border-blue-600 inline-block p-4 text-blue-600 hover:bg-gray-200 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">Terminal
+                  </a>
+                </label>
+                  <label class="mr-2">
+                    <input type="radio" class=" peer hidden">
+                    <a class="peer-checked:text-blue-600 peer-checked:border-blue-600 inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:bg-gray-200">Editor</a>  
+                </label>
               
                </ul>
               </div>
@@ -233,10 +236,11 @@ import { RouterLink, RouterView } from 'vue-router'
                   <div id="terminal" class="tabcontent">
                     this is terminal
                   </div>
-                  <div id="editor" class="tabcontent">
+                  <div id="editor" class="hidden tabcontent">
                     this is editor
                   </div>
                 </div>
+      
             </form>
         </div>
     </div>
@@ -259,27 +263,5 @@ function maximizeterminal(){
 }
 function closeterminal(){
   document.getElementById("footerterminal").style.display="none";
-}
-function footertab(evt, name) {
-  // Declare all variables
-  var i, tabcontent, tablinks;
-
-  // Get all elements with class="tabcontent" and hide them
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-
-  // Get all elements with class="tablinks" and remove the class "active"
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].name = tablinks[i].name.replace(" active", "");
-  }
-
-  // Show the current tab, and add an "active" class to the button that opened the tab
-  document.getElementById(name).style.display = "block";
-  evt.currentTarget.name += " active";
-  document.getElementById("defaultOpen").click();
-
 }
 </script>

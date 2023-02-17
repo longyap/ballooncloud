@@ -20,4 +20,11 @@ section {
     position: fixed;
     bottom: 0;
 }
-  
+input[name="tabs"]:checked + label {
+    background-color: #fff;
+    border-color: #ccc;
+    border-bottom-color: transparent;
+  }
+  input[name="tabs"]:checked ~ .mt-2 .tab-content {
+    display: block;
+  }
