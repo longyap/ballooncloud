@@ -187,6 +187,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
     </ul>
     </nav> 
+
   </header>
 
   <RouterView />
@@ -201,14 +202,12 @@ import { RouterLink, RouterView } from 'vue-router'
               <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
    
                 <ul class="flex flex-wrap -mb-px">
-                 <label class="mr-2 ">
-                  <input type="radio" class=" peer" checked>
-                  <a class="peer-checked:text-blue-600 peer-checked:border-blue-600 inline-block p-4 text-blue-600 hover:bg-gray-200 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">Terminal
-                  </a>
+                  <label for="tab1" class=" nav mr-2rounded-t-lg hover:text-gray-600 hover:bg-gray-200">
+                  <div class="inline-block p-4 border-b-2 border-transparent ">Terminal
+                  </div>
                 </label>
-                  <label class="mr-2">
-                    <input type="radio" class=" peer hidden">
-                    <a class="peer-checked:text-blue-600 peer-checked:border-blue-600 inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:bg-gray-200">Editor</a>  
+                  <label for="tab2" class="nav mr-2 hover:text-gray-600 hover:bg-gray-200 rounded-t-lg">
+                    <div class="inline-block p-4 border-b-2 border-transparent">Editor</div>  
                 </label>
               
                </ul>
@@ -230,18 +229,15 @@ import { RouterLink, RouterView } from 'vue-router'
                     <span class="sr-only">Close</span>
                   </button>
                 </div>
-            <!-- Modal body -->
-            <form id="terminalform" action="#">
-                <div class="grid gap-4 mb-4 sm:grid-cols-2">
-                  <div id="terminal" class="tabcontent">
-                    this is terminal
+            <!-- Modify pure css or with js later -->
+                <div id=terminalform class="grid gap-4 mb-4 sm:grid-cols-2">
+                  <input type="radio" class="hidden peer" name="tabs" id="tab1" checked />
+                  <input type="radio" class="hidden peer" name="tabs" id="tab2" />
+                  <div class="tab content1">Tab1 Contents</div>
+                  <div class="tab content2">Tab2 Contents</div>
+            
                   </div>
-                  <div id="editor" class="hidden tabcontent">
-                    this is editor
-                  </div>
-                </div>
-      
-            </form>
+
         </div>
     </div>
 </div>
