@@ -42,7 +42,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to retrieve domains: %v", err)
 	}
-	l.ConnectListDomainsActive
+
 	fmt.Println("ID\tName\t\tUUID")
 	fmt.Printf("--------------------------------------------------------\n")
 	for _, d := range domains {
