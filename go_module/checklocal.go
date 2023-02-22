@@ -2,18 +2,20 @@ package main
 
 import (
 	"log"
+	"math"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	cors "github.com/rs/cors/wrapper/gin"
 	"libvirt.org/go/libvirt"
 )
 
 type vm struct {
-	UUID  string `json:"uuid"`
-	Name  string `json:"name"`
-	State string `json:"state"`
-	Vcpus uint   `json:"vcpus"`
-	Ram   uint64 `json:"ram"`
+	UUID  string  `json:"uuid"`
+	Name  string  `json:"name"`
+	State string  `json:"state"`
+	Vcpus uint    `json:"vcpus"`
+	Ram   float64 `json:"ram"`
 }
 
 var vmlists []vm
@@ -21,6 +23,7 @@ var vmlists []vm
 func getvm(c *gin.Context) {
 	getlist()
 	c.IndentedJSON(http.StatusOK, vmlists)
+	vmlists = vmlists[:0]
 }
 func stateswitches(no libvirt.DomainState) string {
 	switch no {
@@ -51,6 +54,10 @@ func getlist() {
 
 	}
 	defer conn.Close()
+	if err != nil {
+		log.Fatalf("", err)
+
+	}
 	alldoms, err := conn.ListAllDomains(0)
 	if err != nil {
 		log.Fatalf("failed to dial libvirt: %v", err)
@@ -65,15 +72,18 @@ func getlist() {
 		}
 
 		state := stateswitches(info.State)
-		vms := vm{uuid, name, state, info.NrVirtCpu, info.Memory}
+		vms := vm{uuid, name, state, info.NrVirtCpu, math.Round(float64(info.Memory) / 1000000)}
 		vmlists = append(vmlists, vms)
 		dom.Free()
+
 	}
 
 }
 func main() {
 	router := gin.Default()
+	router.Use(cors.Default())
 	router.GET("/vm", getvm)
 
 	router.Run("localhost:8080")
+
 }
