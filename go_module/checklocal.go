@@ -1,56 +1,79 @@
 package main
 
 import (
-	"fmt"
 	"log"
+	"net/http"
 
+	"github.com/gin-gonic/gin"
 	"libvirt.org/go/libvirt"
 )
 
-func main() {
+type vm struct {
+	UUID  string `json:"uuid"`
+	Name  string `json:"name"`
+	State string `json:"state"`
+	Vcpus uint   `json:"vcpus"`
+	Ram   uint64 `json:"ram"`
+}
+
+var vmlists []vm
+
+func getvm(c *gin.Context) {
+	getlist()
+	c.IndentedJSON(http.StatusOK, vmlists)
+}
+func stateswitches(no libvirt.DomainState) string {
+	switch no {
+	case libvirt.DOMAIN_NOSTATE:
+		return "No State"
+	case libvirt.DOMAIN_RUNNING:
+		return "Running"
+	case libvirt.DOMAIN_BLOCKED:
+		return "Blocked"
+	case libvirt.DOMAIN_PAUSED:
+		return "Paused"
+	case libvirt.DOMAIN_SHUTDOWN:
+		return "Shutting Down"
+	case libvirt.DOMAIN_SHUTOFF:
+		return "Shut Off"
+	case libvirt.DOMAIN_CRASHED:
+		return "Crashed"
+	default:
+		return "Unknown"
+	}
+
+}
+
+func getlist() {
 	conn, err := libvirt.NewConnectReadOnly("qemu:///system")
 	if err != nil {
 		log.Fatalf("failed to dial libvirt: %v", err)
 
 	}
-	hname, err := conn.GetHostname()
 	defer conn.Close()
-
-	indoms, err := conn.ListAllDomains(libvirt.CONNECT_LIST_DOMAINS_INACTIVE)
-	if err != nil {
-		log.Fatalf("failed to dial libvirt: %v", err)
-	}
-	doms, err := conn.ListAllDomains(libvirt.CONNECT_LIST_DOMAINS_ACTIVE)
-	if err != nil {
-		log.Fatalf("failed to dial libvirt: %v", err)
-	}
 	alldoms, err := conn.ListAllDomains(0)
 	if err != nil {
 		log.Fatalf("failed to dial libvirt: %v", err)
 	}
 	for _, dom := range alldoms {
-		name, err := dom.GetName()
 		uuid, err := dom.GetUUIDString()
-		status, reason, err := dom.GetState()
 		info, err := dom.GetInfo()
-
-		if err != nil {
-		}
-		fmt.Println(name, "no1 \n", uuid, "no2 \n", status, "%no3 \n", reason, "\n", info.NrVirtCpu, "\n", info.Memory)
-	}
-
-	for _, dom := range indoms {
-
-		dom.Free()
-	}
-
-	fmt.Printf("\n%d running domains:\n", len(indoms))
-	for _, dom := range doms {
 		name, err := dom.GetName()
+		if err != nil {
+			log.Fatalf("", err)
 
-		if err == nil {
-			fmt.Printf(hname, "  %s\n", name)
 		}
+
+		state := stateswitches(info.State)
+		vms := vm{uuid, name, state, info.NrVirtCpu, info.Memory}
+		vmlists = append(vmlists, vms)
 		dom.Free()
 	}
+
+}
+func main() {
+	router := gin.Default()
+	router.GET("/vm", getvm)
+
+	router.Run("localhost:8080")
 }
