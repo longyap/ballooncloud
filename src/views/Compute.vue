@@ -58,16 +58,16 @@ An instance is a compute host. Choose between virtual machines (VMs) and bare me
                     UUID
                 </th>
                 <th scope="col" class="px-8 py-3">
-                    Public IP
+                    Created Date
                 </th>
                 <th scope="col" class="px-8 py-3">
                     Private IP
                     </th>
                 <th scope="col" class="px-8 py-3">
-                    Shape
+                    Public IP
                 </th>
                 <th scope="col" class="px-8 py-3">
-                    Created Date
+                    Shape
                 </th>
             </tr>
         </thead>
@@ -83,7 +83,7 @@ An instance is a compute host. Choose between virtual machines (VMs) and bare me
 </template>
 
 <script>
-fetch('http://localhost:8080/vm')
+fetch('http://localhost:8080/api/vm')
   .then(response => response.json())
   .then(data => {
    // const thead = document.querySelector('thead');
@@ -101,13 +101,17 @@ fetch('http://localhost:8080/vm')
       ramCell.textContent = vm.ram;
       const uuidCell = document.createElement('th');
       uuidCell.textContent = vm.uuid;
+      const dateCell = document.createElement('th');
+      dateCell.textContent = vm.date;
       row.appendChild(nameCell);
       row.appendChild(stateCell);
       row.appendChild(vcpusCell);
       row.appendChild(ramCell);
       row.appendChild(uuidCell);
+      row.appendChild(dateCell);
       tbody.appendChild(row);
     }
   })
+  
   .catch(error => console.error(error));
 </script>

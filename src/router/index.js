@@ -21,6 +21,11 @@ const router = createRouter({
       component: () => import('../views/Computes/CreateInstance.vue')
     },
     {
+      path: '/compute/instance',
+      name: 'viewinstance',
+      component: () => import('../views/Computes/ViewInstance.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

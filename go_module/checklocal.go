@@ -4,6 +4,7 @@ import (
 	"log"
 	"math"
 	"net/http"
+	"os/exec"
 
 	"github.com/gin-gonic/gin"
 	cors "github.com/rs/cors/wrapper/gin"
@@ -16,6 +17,7 @@ type vm struct {
 	State string  `json:"state"`
 	Vcpus uint    `json:"vcpus"`
 	Ram   float64 `json:"ram"`
+	Date  string  `json:"date"`
 }
 
 var vmlists []vm
@@ -66,13 +68,15 @@ func getlist() {
 		uuid, err := dom.GetUUIDString()
 		info, err := dom.GetInfo()
 		name, err := dom.GetName()
+		cmd := exec.Command("date")
+		date, err := cmd.Output()
+
 		if err != nil {
 			log.Fatalf("", err)
 
 		}
-
 		state := stateswitches(info.State)
-		vms := vm{uuid, name, state, info.NrVirtCpu, math.Round(float64(info.Memory) / 1000000)}
+		vms := vm{uuid, name, state, info.NrVirtCpu, math.Round(float64(info.Memory) / 1000000), string(date)}
 		vmlists = append(vmlists, vms)
 		dom.Free()
 
@@ -82,7 +86,7 @@ func getlist() {
 func main() {
 	router := gin.Default()
 	router.Use(cors.Default())
-	router.GET("/vm", getvm)
+	router.GET("/api/vm", getvm)
 
 	router.Run("localhost:8080")
 
