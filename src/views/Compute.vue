@@ -89,19 +89,22 @@ fetch('http://localhost:8080/api/vm')
    // const thead = document.querySelector('thead');
     const tbody = document.getElementById('tbody');
     for (const vm of data) {
+    
       const row = document.createElement('tr');
         row.classList.add("border-b");
-      const nameCell = document.createElement('th');
+      const nameCell = document.createElement('a');
       nameCell.textContent = vm.name;
+      nameCell.href="/compute/instance";
+      nameCell.classList.add("text-blue-600","font-bold","underline");
       const stateCell = document.createElement('th');
-      stateCell.textContent = vm.state;
-      const vcpusCell = document.createElement('th');
+      stateCell.textContent ="• "+ vm.state;
+      const vcpusCell = document.createElement('td');
       vcpusCell.textContent = vm.vcpus;
-      const ramCell = document.createElement('th');
+      const ramCell = document.createElement('td');
       ramCell.textContent = vm.ram;
-      const uuidCell = document.createElement('th');
+      const uuidCell = document.createElement('td');
       uuidCell.textContent = vm.uuid;
-      const dateCell = document.createElement('th');
+      const dateCell = document.createElement('td');
       dateCell.textContent = vm.date;
       row.appendChild(nameCell);
       row.appendChild(stateCell);
