@@ -94,13 +94,13 @@ fetch('http://localhost:8080/api/vm')
         row.classList.add("border-b");
       const nameCell = document.createElement('a');
       nameCell.textContent = vm.name;
-      nameCell.href="/compute/instance";
+      nameCell.href="/compute/instance?="+vm.uuid;
       nameCell.classList.add("text-blue-600","font-bold","underline");
       const stateCell = document.createElement('th');
       stateCell.textContent ="• "+ vm.state;
-      const vcpusCell = document.createElement('td');
+      const vcpusCell = document.createElement('th');
       vcpusCell.textContent = vm.vcpus;
-      const ramCell = document.createElement('td');
+      const ramCell = document.createElement('th');
       ramCell.textContent = vm.ram;
       const uuidCell = document.createElement('td');
       uuidCell.textContent = vm.uuid;

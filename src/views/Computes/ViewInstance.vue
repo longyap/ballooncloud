@@ -6,22 +6,23 @@
 
   <div class="container flex flex-wrap items-center justify-between mx-auto">
     <div class="grid grid-cols-2">
-        <div>
+      <div>
+        <RouterLink to="/compute"> 
       <button type="button" class="text-grey-800 hover:text-blue-600 font-bold text-sm px-5 py-2.5 text-center mr-2 mb-2">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
 </svg>
-    
-        Back
+      Back
     </button>
+  </RouterLink>
     </div>
    <div class="">
     <a href="#" class="flex items-center">
-        <span class="self-center text-xl font-semibold whitespace-nowrap">Instance Name</span>
+        <span id="instance-name" class="self-center text-xl font-semibold whitespace-nowrap"> </span>
     </a>
     <ul class="list-disc pl-5">
     <li href="#" class="self-center">
-        <span class=" text-green-700">Running</span>
+        <span id="instance-state"></span>
     </li>
 </ul>
    </div>
@@ -108,11 +109,19 @@
 </section>
 </template>
 <script>
-//fetch('http://localhost:8080/api/vm/1?uuid='+{ uuid })
- // .then(response => response.json())
- // .then(data => {
-
- // })
+let params = new URLSearchParams(document.location.search);
+let uuid = params.get("")
+console.log(uuid)
+fetch('http://localhost:8080/api/vm/1?uuid='+uuid)
+  .then(response => response.json())
+  .then(data => { 
+    for (const vm of data) {
+    const name = document.getElementById('instance-name');
+   const state = document.getElementById('instance-state');
+    name.textContent= vm.name;
+    state.textContent=vm.state;
+    }
+  })
 
 
 
