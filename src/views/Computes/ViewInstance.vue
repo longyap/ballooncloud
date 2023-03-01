@@ -107,3 +107,15 @@
 </section>
 </section>
 </template>
+<script>
+fetch('http://localhost:8080/api/vm/1?uuid='+{ uuid })
+  .then(response => response.json())
+  .then(data => {
+
+  })
+
+
+
+
+
+</script>
