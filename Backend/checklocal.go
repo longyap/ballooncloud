@@ -115,6 +115,19 @@ func filterlist(queryuuid string, alldoms []libvirt.Domain) {
 		}
 	}
 }
+func shutdown(queryuuid string, alldoms []libvirt.Domain) {
+	for _, dom := range alldoms {
+		uuid, err := dom.GetUUIDString()
+		if err != nil {
+			log.Fatalf("", err)
+		}
+		if queryuuid == uuid {
+			dom.Shutdown()
+			dom.Free()
+		}
+	}
+}
+
 func main() {
 	router := gin.Default()
 	router.Use(cors.Default())
