@@ -21,10 +21,10 @@ func main() {
 	}
 	defer dom.Free()
 
-	if err := dom.Destroy(); err != nil {
+	if err := dom.Create(); err != nil {
 		fmt.Println("Failed to destroy domain:", err)
 		return
 	}
 
-	fmt.Println("Domain destroyed successfully")
+	fmt.Println("Domain startup successfully")
 }

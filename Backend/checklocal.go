@@ -36,6 +36,14 @@ func queryvm(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, vmlists)
 	vmlists = vmlists[:0]
 }
+
+func shutdownvm(c *gin.Context) {
+	dom := getdomain()
+	uuid := c.Query("uuid")
+	shutdown(uuid, dom)
+	c.IndentedJSON(http.StatusOK, vmlists)
+
+}
 func stateswitches(no libvirt.DomainState) string {
 	switch no {
 	case libvirt.DOMAIN_NOSTATE:
@@ -119,11 +127,11 @@ func shutdown(queryuuid string, alldoms []libvirt.Domain) {
 	for _, dom := range alldoms {
 		uuid, err := dom.GetUUIDString()
 		if err != nil {
-			log.Fatalf("", err)
+			log.Fatalf("test", err)
 		}
 		if queryuuid == uuid {
-			dom.Shutdown()
-			dom.Free()
+			println(dom.GetName())
+			dom.Destroy()
 		}
 	}
 }
@@ -133,6 +141,7 @@ func main() {
 	router.Use(cors.Default())
 	router.GET("/api/vm", getvm)
 	router.GET("/api/vm/1", queryvm)
+	router.GET("/api/vm/2", shutdownvm)
 	router.Run("localhost:8080")
 
 }

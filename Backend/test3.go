@@ -21,10 +21,10 @@ func main() {
 	}
 	defer dom.Free()
 
-	if err := dom.Destroy(); err != nil {
+	if err := dom.Reboot(libvirt.DOMAIN_REBOOT_DEFAULT); err != nil {
 		fmt.Println("Failed to destroy domain:", err)
 		return
 	}
 
-	fmt.Println("Domain destroyed successfully")
+	fmt.Println("Domain reboot successfully")
 }
