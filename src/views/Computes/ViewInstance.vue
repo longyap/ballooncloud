@@ -34,19 +34,19 @@
       <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
       </svg>Edit
         </button>
-        <button type="button" class="text-grey-800 hover:text-blue-600 font-bold rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+        <button type="submit" @click="startvm" class="text-grey-800 hover:text-blue-600 font-bold rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
             </svg>
             Start
         </button>
-        <button type="button" class="text-grey-800 hover:text-blue-600 font-bold rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+        <button type="submit" @click="stopvm" class="text-grey-800 hover:text-blue-600 font-bold rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 7.5A2.25 2.25 0 017.5 5.25h9a2.25 2.25 0 012.25 2.25v9a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25v-9z" />
             </svg>
             Stop
         </button>
-        <button type="button" class="text-grey-800 hover:text-blue-600 font-bold rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+        <button type="button" @click="restartvm" class="text-grey-800 hover:text-blue-600 font-bold rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
             </svg>
@@ -102,11 +102,29 @@
 </section>
 </section>
 </template>
+
 <script>
+export default {
+  methods: {
+  startvm(){
+  fetch('http://localhost:8080/api/vm/instance/start?uuid='+uuid)
+},
+  stopvm(){
+  fetch('http://localhost:8080/api/vm/instance/stop?uuid='+uuid)
+
+},restartvm(){
+  fetch('http://localhost:8080/api/vm/instance/reboot?uuid='+uuid)
+
+},fetchinfo(){
+  
+}
+  }
+}
+
 let params = new URLSearchParams(document.location.search);
 let uuid = params.get("")
 console.log(uuid)
-fetch('http://localhost:8080/api/vm/1?uuid='+uuid)
+fetch('http://localhost:8080/api/vm/instance?uuid='+uuid)
   .then(response => response.json())
   .then(data => { 
     for (const vm of data) {
@@ -116,9 +134,6 @@ fetch('http://localhost:8080/api/vm/1?uuid='+uuid)
     state.textContent=vm.state;
     }
   })
-
-
-
 
 
 </script>

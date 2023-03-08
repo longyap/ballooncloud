@@ -86,7 +86,6 @@ An instance is a compute host. Choose between virtual machines (VMs) and bare me
 fetch('http://localhost:8080/api/vm')
   .then(response => response.json())
   .then(data => {
-   // const thead = document.querySelector('thead');
     const tbody = document.getElementById('tbody');
     for (const vm of data) {
     
