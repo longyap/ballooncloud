@@ -77,8 +77,8 @@
 <section>
     
     <ul class="pb-5 justify-left px-10 py-5 grid">
+      <l1>
     <h3 class="font-bold text-2xl">Resources</h3>    
-<l1>
 <nav class="py-10 flex flex-col md:grid-cols-2">
     <a href="#" class="hover:text-blue-600 py-2">Details</a>
     <a href="#" class="hover:text-blue-600 py-2">Metrics</a>
@@ -94,9 +94,73 @@
 </ul>
 <section>
 <div class="p-4 sm:ml-12 sm:mr-12">
-    <h1 class= "py-2 px-10 text-2xl text-slate-900">
+    <h1 class= "py-2 text-2xl text-slate-900">
     Details
   </h1>
+  <h1 class= "py-2 text-2xl text-slate-900">
+  Instance detail
+  </h1>
+  <li>
+  Instance name:
+  </li>
+  <li>
+  uuid:
+  </li>
+  <li>
+  Description:
+  </li>
+  <li>
+  Creation Time:
+  </li>
+
+  <h1 class= "py-5 text-2xl text-slate-900">
+    Instance Access
+  </h1>
+  <li>
+  Public IP:
+  </li>
+  <li>
+  Username:
+  </li>
+  <h1 class= "py-5 text-2xl text-slate-900">
+    Shape
+  </h1>
+  <li>
+  cpu name:
+  </li>
+  <li>
+  vcpus:
+  </li>
+  <li>
+  ram:
+  </li>
+  <li>
+  disk size:
+  </li>
+  <h1 class= "py-5 text-2xl text-slate-900">
+    Instance Access
+  </h1>
+  <li>
+  Public IP:
+  </li>
+  <li>
+  Username:
+  </li>
+  <h1 class= "py-5 text-2xl text-slate-900">
+    Primary Vnic
+  </h1>
+  <li>
+  cpu name:
+  </li>
+  <li>
+  vcpus:
+  </li>
+  <li>
+  ram:
+  </li>
+  <li>
+  disk size:
+  </li>
 </div>
 
 </section>
@@ -115,8 +179,20 @@ export default {
 },restartvm(){
   fetch('http://localhost:8080/api/vm/instance/reboot?uuid='+uuid)
 
-},fetchinfo(){
-  
+},readvm(){
+  let params = new URLSearchParams(document.location.search);
+let uuid = params.get("")
+console.log(uuid)
+fetch('http://localhost:8080/api/vm/instance?uuid='+uuid)
+  .then(response => response.json())
+  .then(data => { 
+    for (const vm of data) {
+    const name = document.getElementById('instance-name');
+   const state = document.getElementById('instance-state');
+    name.textContent= vm.name;
+    state.textContent=vm.state;
+    }
+  })
 }
   }
 }
@@ -134,6 +210,7 @@ fetch('http://localhost:8080/api/vm/instance?uuid='+uuid)
     state.textContent=vm.state;
     }
   })
+
 
 
 </script>
