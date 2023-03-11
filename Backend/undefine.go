@@ -14,7 +14,7 @@ func main() {
 	}
 	defer conn.Close()
 
-	dom, err := conn.LookupDomainByUUIDString("84b00e85-b74e-4376-bc6f-d70d109db94a")
+	dom, err := conn.LookupDomainByUUIDString("242a70fb-9876-463a-9343-46342b8da766")
 	if err != nil {
 		fmt.Println("Failed to find domain:", err)
 		return

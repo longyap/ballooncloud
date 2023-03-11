@@ -42,6 +42,22 @@ func queryvm(c *gin.Context) {
 	vmlists = vmlists[:0]
 }
 
+func unlistvm(c *gin.Context) {
+	conn := getdomain()
+	uuid := c.Query("uuid")
+	dom, err := conn.LookupDomainByUUIDString(uuid)
+	if err != nil {
+		println("Failed to find domain:", err)
+		return
+	}
+	if err := dom.Undefine(); err != nil {
+		println("Failed to destroy domain:", err)
+		return
+	}
+	sucess := "destroy domain success"
+	c.IndentedJSON(http.StatusOK, sucess)
+
+}
 func shutdownvm(c *gin.Context) {
 	conn := getdomain()
 	uuid := c.Query("uuid")
@@ -174,6 +190,7 @@ func main() {
 	router.GET("/api/vm/instance/start", startvm)
 	router.GET("/api/vm/instance/stop", shutdownvm)
 	router.GET("/api/vm/instance/reboot", rebootvm)
+	router.GET("/api/vm/instance/unlist", unlistvm)
 	router.Run("localhost:8080")
 
 }
